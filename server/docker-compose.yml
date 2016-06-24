@@ -1,0 +1,9 @@
+postgres:
+  image: livingdocs/postgres:latest
+  ports:
+    - 5432:5432
+
+elasticsearch:
+  image: livingdocs/elasticsearch:latest
+  ports:
+    - 9200:9200

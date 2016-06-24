@@ -1,0 +1,15 @@
+{
+  "name": "@livingdocs/docker",
+  "version": "0.0.0-pre",
+  "description": "Docker files for development and production Livingdocs instances",
+  "scripts": {
+    "test": "./test/test.sh"
+  },
+  "bin": {
+    "li-docker": "bin/cli.js"
+  },
+  "dependencies": {
+    "cpy": "^4.0.1",
+    "minimist": "^1.2.0"
+  }
+}

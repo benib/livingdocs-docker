@@ -1,0 +1,12 @@
+{
+  "name": "@livingdocs/livingdocs-docker-test",
+  "version": "0.0.0-placeholder",
+  "description": "livingdocs-docker-test",
+  "engines": {
+    "node": "4",
+    "npm": "^3.8.3"
+  },
+  "dependencies": {
+    "@livingdocs/docker": "file:../"
+  }
+}

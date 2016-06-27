@@ -6,8 +6,7 @@ var action = argv._[1]
 var cwd = process.cwd()
 
 var actions = {
-  'install': require('./install.js'),
-  'build': require('./build.js')
+  'install': require('./install.js')
 }
 var func = actions[action]
 

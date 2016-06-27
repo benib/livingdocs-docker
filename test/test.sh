@@ -14,7 +14,7 @@ touch .npmrc
 
 # give the scripts a spin
 li-docker server install
-li-docker server build
+docker build .
 
 li-docker editor install
-li-docker editor build
+docker build .

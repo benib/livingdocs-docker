@@ -7,6 +7,5 @@
     "npm": "^3.8.3"
   },
   "dependencies": {
-    "@livingdocs/docker": "file:../"
   }
 }

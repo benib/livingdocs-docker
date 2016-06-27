@@ -8,8 +8,8 @@ cd "$(dirname "$0")"
 rm -rf node_modules npm-shrinkwrap.json .npmrc
 
 # prepare files required for docker build
-npm i
-npm shrinkwrap
+npm install ../
+echo "{}" > npm-shrinkwrap.json
 touch .npmrc
 
 # give the scripts a spin

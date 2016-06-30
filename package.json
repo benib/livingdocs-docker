@@ -20,7 +20,7 @@
   "devDependencies": {
     "@semantic-release/condition-travis": "^5.0.1",
     "greenkeeper-postpublish": "^1.0.0",
-    "semantic-release": "^6.2.0"
+    "semantic-release": "^6.3.0"
   },
   "engines": {
     "node": "4",

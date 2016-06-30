@@ -11,5 +11,15 @@
   "dependencies": {
     "cpy": "^4.0.1",
     "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "@semantic-release/condition-codeship": "^1.1.0",
+    "semantic-release": "^6.2.0"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "release": {
+    "verifyConditions": "@semantic-release/condition-codeship"
   }
 }

@@ -14,4 +14,4 @@ install:
 script:
   - npm test
 after_success:
-  - semantic-release
+  - npm run semantic-release

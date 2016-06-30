@@ -9,13 +9,17 @@
   "bin": {
     "li-docker": "bin/cli.js"
   },
+  "scripts": {
+    "semantic-release": "./bin/semantic-release.sh"
+  },
   "dependencies": {
     "cpy": "^4.0.1",
     "minimist": "^1.2.0"
   },
   "devDependencies": {
-    "semantic-release": "^6.2.0",
-    "@semantic-release/condition-travis": "^5.0.1"
+    "@semantic-release/condition-travis": "^5.0.1",
+    "greenkeeper-postpublish": "^1.0.0",
+    "semantic-release": "^6.2.0"
   },
   "engines": {
     "node": "4",

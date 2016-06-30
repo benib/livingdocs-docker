@@ -13,8 +13,8 @@ echo "{}" > npm-shrinkwrap.json
 touch .npmrc
 
 # give the scripts a spin
-li-docker server install
+li-docker editor install
 docker build .
 
-li-docker editor install
+li-docker server install
 docker build .

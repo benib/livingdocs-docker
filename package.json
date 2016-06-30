@@ -1,6 +1,7 @@
 {
   "name": "@livingdocs/docker",
-  "version": "0.0.0-pre",
+  "version": "0.0.0-placeholder",
+  "repository": "https://github.com/upfrontIO/livingdocs-docker",
   "description": "Docker files for development and production Livingdocs instances",
   "scripts": {
     "test": "./test/test.sh"
@@ -11,5 +12,19 @@
   "dependencies": {
     "cpy": "^4.0.1",
     "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "semantic-release": "^6.2.0",
+    "@semantic-release/condition-travis": "^5.0.1"
+  },
+  "engines": {
+    "node": "4",
+    "npm": "^3.8.3"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "release": {
+    "verifyConditions": "@semantic-release/condition-travis"
   }
 }

@@ -3,13 +3,11 @@
   "version": "0.0.0-placeholder",
   "repository": "https://github.com/upfrontIO/livingdocs-docker",
   "description": "Docker files for development and production Livingdocs instances",
-  "scripts": {
-    "test": "./test/test.sh"
-  },
   "bin": {
     "li-docker": "bin/cli.js"
   },
   "scripts": {
+    "test": "./test/test.sh",
     "semantic-release": "./bin/semantic-release.sh"
   },
   "dependencies": {

@@ -20,7 +20,7 @@ ADD .npmrc /app/.npmrc
 
 RUN npm install -s -g npm@"$(jq -r '.engines.npm' package.json)"
 RUN npm install -s -g grunt-cli
-RUN npm -s cache clean
+RUN npm cache clean -s
 
 EXPOSE 9000
 

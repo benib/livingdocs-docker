@@ -8,9 +8,9 @@ RUN apt-get update && apt-get upgrade -y && \
     rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add dumb-init to correctly handle signals sent to the main process
-ADD node_modules/@livingdocs/docker/editor/bin/dumb-init /sbin/dumb-init
+ADD docker/bin/dumb-init /sbin/dumb-init
 
-COPY node_modules/@livingdocs/docker/editor/nginx.conf /etc/nginx/nginx.conf
+COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 # Add files required for installing dependencies
 WORKDIR /app
@@ -30,7 +30,7 @@ ARG ENVIRONMENT=local
 ENV ENVIRONMENT ${ENVIRONMENT:-local}
 
 ADD ./ /app
-RUN /app/node_modules/@livingdocs/docker/editor/bin/build-app.sh
+RUN docker/bin/build-app.sh
 
 ENTRYPOINT  ["/sbin/dumb-init"]
 CMD ["npm", "start"]

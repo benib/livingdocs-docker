@@ -4,17 +4,21 @@ set -e
 
 cd "$(dirname "$0")"
 
-# cleanup
-rm -rf node_modules npm-shrinkwrap.json .npmrc
+for PROJECT in 'server' 'editor'
+do
+  cd $PROJECT
 
-# prepare files required for docker build
-npm install ../
-echo "{}" > npm-shrinkwrap.json
-touch .npmrc
+  # cleanup
+  rm -rf node_modules
 
-# give the scripts a spin
-li-docker editor install
-docker build .
+  # prepare files required for docker build
+  npm install ../../
+  echo "{}" > npm-shrinkwrap.json
+  touch .npmrc
 
-li-docker server install
-docker build .
+  # give the scripts a spin
+  li-docker install
+  li-docker build
+
+  cd ..
+done

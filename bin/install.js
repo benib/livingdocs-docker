@@ -1,15 +1,14 @@
-#!/usr/bin/env node
-
 var path = require('path')
-var cpy = require('cpy')
+var copy = require('recursive-copy')
 
 module.exports = function (project, targetPath) {
 	var sourcePath = path.resolve(path.join('node_modules', '@livingdocs', 'docker', project))
-	var files = ['docker-compose.yml', 'Dockerfile', '.dockerignore']
 
-	cpy(files, targetPath, {cwd: sourcePath, overwrite: true}).then(function () {
-		console.log('Docker files copied successfully')
-	}).catch(function (err){
-		console.log('Failed copying Docker files: ', err)
+	copy(sourcePath, path.join(targetPath, 'docker'), {overwrite: true}, function(err){
+		if(err){
+			console.error('Failed copying Docker files: ', err)
+		} else {
+			console.log('Docker files copied successfully')
+		}
 	})
 }

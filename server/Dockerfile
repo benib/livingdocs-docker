@@ -9,7 +9,7 @@ RUN apt-get update && apt-get upgrade -y && \
     rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add dumb-init to correctly handle signals sent to the main process
-ADD node_modules/@livingdocs/docker/server/bin/dumb-init /sbin/dumb-init
+ADD docker/server/bin/dumb-init /sbin/dumb-init
 
 # Add files required for installing dependencies
 WORKDIR /app

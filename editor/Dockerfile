@@ -8,7 +8,7 @@ RUN apt-get update && apt-get upgrade -y && \
     rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add dumb-init to correctly handle signals sent to the main process
-ADD docker/bin/dumb-init /sbin/dumb-init
+ADD docker/dumb-init /sbin/dumb-init
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
@@ -30,7 +30,7 @@ ARG ENVIRONMENT=local
 ENV ENVIRONMENT ${ENVIRONMENT:-local}
 
 ADD ./ /app
-RUN docker/bin/build-app.sh
+RUN docker/build-app.sh
 
 ENTRYPOINT  ["/sbin/dumb-init"]
 CMD ["npm", "start"]

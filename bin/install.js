@@ -1,14 +1,17 @@
 var path = require('path')
-var copy = require('recursive-copy')
+var fs = require('fs-extra')
 
 module.exports = function (project, targetPath) {
 	var sourcePath = path.resolve(path.join('node_modules', '@livingdocs', 'docker', project))
+	var dockerPath = path.join(targetPath, 'docker')
 
-	copy(sourcePath, path.join(targetPath, 'docker'), {overwrite: true}, function(err){
-		if(err){
-			console.error('Failed copying Docker files: ', err)
-		} else {
-			console.log('Docker files copied successfully')
-		}
+	fs.copy(sourcePath, dockerPath, {clobber: true}, function (err) {
+		if (err) return console.error('Failed copying Docker files: ', err)
+		console.log('Docker files copied successfully')
+
+		fs.move(path.join(dockerPath, '.dockerignore'), path.join(targetPath, '.dockerignore'), {clobber: true}, function (err) {
+			if (err) return console.error(err)
+			console.log('Docker dotfiles copied successfully')
+		})
 	})
 }

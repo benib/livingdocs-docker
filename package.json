@@ -14,8 +14,8 @@
     "semantic-release": "./bin/semantic-release.sh"
   },
   "dependencies": {
-    "minimist": "^1.2.0",
-    "recursive-copy": "^2.0.5"
+    "fs-extra": "^0.30.0",
+    "minimist": "^1.2.0"
   },
   "devDependencies": {
     "@semantic-release/condition-travis": "^5.0.1",

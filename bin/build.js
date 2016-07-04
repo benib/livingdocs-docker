@@ -17,7 +17,7 @@ module.exports = function (project, rootDir) {
 
 build = function() {
 	command = 'docker build -f docker/Dockerfile .'
-	var child = exec(command)
+	var child = exec(command, {env: process.env})
 	child.stdout.on('data', function (data) {
 		process.stdout.write(data.toString())
 	})

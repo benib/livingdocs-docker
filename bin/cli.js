@@ -6,7 +6,7 @@ var path = require('path')
 var action = argv._[0]
 var cwd = process.cwd()
 
-getProject = function(){
+getProject = function () {
   var pkg = require(path.join(cwd, 'package.json'))
   var isProject = function (p, name) {
     return (p.dependencies[name] || p.name == name)
@@ -20,7 +20,7 @@ getProject = function(){
   }
 }
 
-getAction = function(){
+getAction = function () {
   var actions = {
     'install': require('./install.js'),
     'build': require('./build.js')
@@ -30,7 +30,7 @@ getAction = function(){
 
 var project = getProject()
 var func = getAction()
-if(typeof func === 'function'){
+if (typeof func === 'function') {
   func(project, cwd)
 } else {
   console.error('Unknown action: ' + action)

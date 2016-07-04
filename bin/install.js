@@ -2,7 +2,7 @@ var path = require('path')
 var fs = require('fs-extra')
 
 module.exports = function (project, targetPath) {
-	var sourcePath = path.resolve(path.join('node_modules', '@livingdocs', 'docker', project))
+	var sourcePath = path.join(__dirname, '..', project)
 	var dockerPath = path.join(targetPath, 'docker')
 
 	fs.copy(sourcePath, dockerPath, {clobber: true}, function (err) {

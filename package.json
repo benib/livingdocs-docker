@@ -3,7 +3,7 @@
   "version": "0.0.0-placeholder",
   "repository": {
     "type": "git",
-     "url": "https://github.com/upfrontIO/livingdocs-docker.git"
+    "url": "https://github.com/upfrontIO/livingdocs-docker.git"
   },
   "description": "Docker files for development and production Livingdocs instances",
   "bin": {
@@ -14,8 +14,8 @@
     "semantic-release": "./bin/semantic-release.sh"
   },
   "dependencies": {
-    "cpy": "^4.0.1",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "recursive-copy": "^2.0.5"
   },
   "devDependencies": {
     "@semantic-release/condition-travis": "^5.0.1",

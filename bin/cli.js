@@ -1,19 +1,37 @@
 #!/usr/bin/env node
 
 var argv = require('minimist')(process.argv.slice(2))
-var project = argv._[0]
-var action = argv._[1]
+var path = require('path')
+
+var action = argv._[0]
 var cwd = process.cwd()
 
-var actions = {
-  'install': require('./install.js')
+getProject = function(){
+  var pkg = require(path.join(cwd, 'package.json'))
+  var isProject = function (p, name) {
+    return (p.dependencies[name] || p.name == name)
+  }
+  if (isProject(pkg, '@livingdocs/server')) {
+    return 'server'
+  } else if (isProject(pkg, '@livingdocs/editor')) {
+    return 'editor'
+  } else {
+    console.error('No Dockerfiles available for this project')
+  }
 }
-var func = actions[action]
 
-if(['editor', 'server'].indexOf(project) < 0){
-  console.log('Unknown project: ' + project)
-} else if(typeof func === 'function'){
+getAction = function(){
+  var actions = {
+    'install': require('./install.js'),
+    'build': require('./build.js')
+  }
+  return actions[action]
+}
+
+var project = getProject()
+var func = getAction()
+if(typeof func === 'function'){
   func(project, cwd)
 } else {
-  console.log('Unknown action: ' + action)
+  console.error('Unknown action: ' + action)
 }

@@ -1,3 +1,6 @@
+# This file is managed with https://github.com/upfrontIO/livingdocs-docker
+# Local changes are discouraged as they might get overwritten
+
 FROM node:4
 MAINTAINER Livingdocs <dev@livingdocs.io>
 

@@ -24,6 +24,7 @@ RUN npm install -s -g grunt-cli
 RUN npm install -s
 RUN npm cache clean -s
 
+ENV PATH /app/node_modules/.bin:$PATH
 ENV ENVIRONMENT local
 EXPOSE 9090
 ADD ./ /app

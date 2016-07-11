@@ -31,6 +31,7 @@ EXPOSE 9000
 ARG RUNBUILD=false
 ARG ENVIRONMENT=local
 ENV ENVIRONMENT ${ENVIRONMENT:-local}
+ENV PATH /app/node_modules/.bin:$PATH
 
 ADD ./ /app
 RUN docker/build-app.sh

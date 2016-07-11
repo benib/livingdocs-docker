@@ -19,10 +19,11 @@ WORKDIR /app
 ADD package.json /app/package.json
 ADD .npmrc /app/.npmrc
 
-RUN npm install -s -g npm@"$(jq -r '.engines.npm' package.json)"
-RUN npm install -s -g grunt-cli
-RUN npm install -s
-RUN npm cache clean -s
+ENV NPM_CONFIG_LOGLEVEL silent
+RUN npm install -g npm@"$(jq -r '.engines.npm' package.json)"
+RUN npm install -g grunt-cli
+RUN npm install
+RUN npm cache clean
 
 ENV PATH /app/node_modules/.bin:$PATH
 ENV ENVIRONMENT local

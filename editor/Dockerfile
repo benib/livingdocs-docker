@@ -21,9 +21,10 @@ ADD package.json /app/package.json
 ADD npm-shrinkwrap.json /app/npm-shrinkwrap.json
 ADD .npmrc /app/.npmrc
 
-RUN npm install -s -g npm@"$(jq -r '.engines.npm' package.json)"
-RUN npm install -s -g grunt-cli
-RUN npm cache clean -s
+ENV NPM_CONFIG_LOGLEVEL silent
+RUN npm install -g npm@"$(jq -r '.engines.npm' package.json)"
+RUN npm install -g grunt-cli
+RUN npm cache clean
 
 EXPOSE 9000
 

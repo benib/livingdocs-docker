@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set
+set -e
 
 if [ "$RUNBUILD" == "true" ]; then
   echo "Build app"

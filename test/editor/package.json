@@ -9,6 +9,6 @@
   "dependencies": {
   },
   "scripts": {
-    "build": "Simulating build..."
+    "build": "echo \"Simulating build...\""
   }
 }

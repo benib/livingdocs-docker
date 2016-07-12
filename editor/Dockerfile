@@ -1,3 +1,6 @@
+# This file is managed with https://github.com/upfrontIO/livingdocs-docker
+# Local changes are discouraged as they might get overwritten
+
 FROM node:4
 MAINTAINER Livingdocs <dev@livingdocs.io>
 
@@ -15,22 +18,25 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 # Add files required for installing dependencies
 WORKDIR /app
 ADD package.json /app/package.json
-ADD npm-shrinkwrap.json /app/npm-shrinkwrap.json
 ADD .npmrc /app/.npmrc
 
-RUN npm install -s -g npm@"$(jq -r '.engines.npm' package.json)"
-RUN npm install -s -g grunt-cli
-RUN npm cache clean -s
+ENV NPM_CONFIG_LOGLEVEL silent
+RUN npm install -g npm@"$(jq -r '.engines.npm' package.json)"
+RUN npm install -g grunt-cli
+RUN npm install
+RUN npm cache clean
 
 EXPOSE 9000
 
-# Run build when requested
-ARG RUNBUILD=false
+# The build can be skipped if you want to start the webpack
+# dev server instead of serving static assets with nginx
+ARG SKIP_BUILD=false
 ARG ENVIRONMENT=local
 ENV ENVIRONMENT ${ENVIRONMENT:-local}
+ENV PATH /app/node_modules/.bin:$PATH
 
 ADD ./ /app
 RUN docker/build-app.sh
 
 ENTRYPOINT  ["/sbin/dumb-init"]
-CMD ["npm", "start"]
+CMD ["nginx"]

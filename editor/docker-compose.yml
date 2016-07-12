@@ -1,0 +1,11 @@
+version: '2'
+services:
+  editor:
+    command: ["npm", "start"]
+    build:
+      context: .
+      args:
+        - ENVIRONMENT=local
+        - SKIP_BUILD=true
+    ports:
+      - 9000:9000

@@ -1,11 +1,14 @@
 {
-  "name": "@livingdocs/server",
+  "name": "@livingdocs/editor",
   "version": "0.0.0-placeholder",
-  "description": "livingdocs-docker-server-test",
+  "description": "livingdocs-docker-editor-test",
   "engines": {
     "node": "4",
     "npm": "^3.8.3"
   },
   "dependencies": {
+  },
+  "scripts": {
+    "build": "Simulating build..."
   }
 }

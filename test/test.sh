@@ -13,7 +13,6 @@ do
 
   # prepare files required for docker build
   npm install ../../
-  echo "{}" > npm-shrinkwrap.json
   touch .npmrc
 
   # give the scripts a spin

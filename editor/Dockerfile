@@ -18,7 +18,6 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 # Add files required for installing dependencies
 WORKDIR /app
 ADD package.json /app/package.json
-ADD npm-shrinkwrap.json /app/npm-shrinkwrap.json
 ADD .npmrc /app/.npmrc
 
 ENV NPM_CONFIG_LOGLEVEL silent

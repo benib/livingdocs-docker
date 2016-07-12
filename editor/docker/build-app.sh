@@ -5,9 +5,9 @@
 
 set -e
 
-if [ "$RUNBUILD" == "true" ]; then
-  echo "Build app"
-  npm run build
+if [ "$SKIP_BUILD" == "true" ]; then
+  echo "Skipping build..."
 else
-  echo "Not building app"
+  echo "Building app..."
+  npm run build
 fi

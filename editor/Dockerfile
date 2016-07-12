@@ -23,12 +23,14 @@ ADD .npmrc /app/.npmrc
 ENV NPM_CONFIG_LOGLEVEL silent
 RUN npm install -g npm@"$(jq -r '.engines.npm' package.json)"
 RUN npm install -g grunt-cli
+RUN npm install
 RUN npm cache clean
 
 EXPOSE 9000
 
-# Run build when requested
-ARG RUNBUILD=false
+# The build can be skipped if you want to start the webpack
+# dev server instead of serving static assets with nginx
+ARG SKIP_BUILD=false
 ARG ENVIRONMENT=local
 ENV ENVIRONMENT ${ENVIRONMENT:-local}
 ENV PATH /app/node_modules/.bin:$PATH
@@ -37,4 +39,4 @@ ADD ./ /app
 RUN docker/build-app.sh
 
 ENTRYPOINT  ["/sbin/dumb-init"]
-CMD ["npm", "start"]
+CMD ["nginx"]

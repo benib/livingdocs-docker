@@ -13,6 +13,6 @@ module.exports = function (project, rootDir) {
   })
   child.on('close', function (code) {
     if (code > 0) console.error('Are the latest Dockerfiles installed? Run: li-docker install')
-    console.log('Build finished with exit code: ' + code)
+    process.exit(code)
   })
 }

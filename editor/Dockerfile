@@ -10,15 +10,15 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get autoremove -y && apt-get clean && \
     rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Add dumb-init to correctly handle signals sent to the main process
-ADD docker/dumb-init /sbin/dumb-init
+# Copy dumb-init to correctly handle signals sent to the main process
+COPY docker/dumb-init /sbin/dumb-init
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
-# Add files required for installing dependencies
+# Copy files required for installing dependencies
 WORKDIR /app
-ADD package.json /app/package.json
-ADD .npmrc /app/.npmrc
+COPY package.json /app/package.json
+COPY .npmrc /app/.npmrc
 
 ENV NPM_CONFIG_LOGLEVEL silent
 RUN npm install -g npm@"$(jq -r '.engines.npm' package.json)"
@@ -35,7 +35,7 @@ ARG ENVIRONMENT=local
 ENV ENVIRONMENT ${ENVIRONMENT:-local}
 ENV PATH /app/node_modules/.bin:$PATH
 
-ADD ./ /app
+COPY ./ /app
 RUN docker/build-app.sh
 
 ENTRYPOINT  ["/sbin/dumb-init"]

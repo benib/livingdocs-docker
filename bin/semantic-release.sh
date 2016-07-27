@@ -4,6 +4,9 @@ set -e
 
 semantic-release pre
 
+# Work around shrinkwrapping issues
+npm prune --production
+
 # Release new version
 npm shrinkwrap
 npm publish

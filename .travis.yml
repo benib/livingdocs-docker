@@ -10,7 +10,6 @@ before_install:
   - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
 install:
   - npm install -g npm@"$(jq -r '.engines.npm' package.json)"
-  - npm install -g semantic-release
   - npm install
 script:
   - npm test

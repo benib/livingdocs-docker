@@ -11,3 +11,8 @@ To build an image
 ```
 li-docker build
 ```
+
+To build an image
+```
+li-docker deploy --stack mystack --environment staging --server_image livingdocs/server:latest --editor_image livingdocs/editor:latest
+```

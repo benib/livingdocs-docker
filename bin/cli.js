@@ -23,7 +23,8 @@ getProject = function () {
 getAction = function () {
   var actions = {
     'install': require('./install.js'),
-    'build': require('./build.js')
+    'build': require('./build.js'),
+    'deploy': require('./deploy.js')
   }
   return actions[action]
 }

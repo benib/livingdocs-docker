@@ -1,0 +1,45 @@
+editor:
+  scale: 1
+  health_check:
+    port: 9000
+    interval: 5000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    request_line: GET "/version.json" "HTTP/1.0"
+    healthy_threshold: 2
+
+server:
+  scale: 1
+  health_check:
+    port: 9090
+    interval: 5000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    request_line: GET "/status" "HTTP/1.0"
+    healthy_threshold: 2
+
+postgres:
+  scale: 1
+  health_check:
+    port: 5432
+    interval: 5000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2
+
+elasticsearch:
+  scale: 1
+  health_check:
+    port: 9200
+    interval: 5000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2

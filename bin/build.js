@@ -1,18 +1,9 @@
-var fs = require('fs')
-var path = require('path')
-var exec = require('child_process').exec
+runCommand = require('./run_command')
 
-module.exports = function (project, rootDir) {
-  command = 'docker build -t livingdocs/' + project + ' -f Dockerfile .'
-  var child = exec(command, {env: process.env})
-  child.stdout.on('data', function (data) {
-    process.stdout.write(data.toString())
-  })
-  child.stderr.on('data', function (data) {
-    process.stderr.write(data.toString())
-  })
-  child.on('close', function (code) {
-    if (code > 0) console.error('Are the latest Dockerfiles installed? Run: li-docker install')
-    process.exit(code)
+module.exports = function (project) {
+  var tag = 'livingdocs/' + project
+
+  runCommand('docker build -t ' + tag + ' -f Dockerfile .', {}, function () {
+    console.log('Docker image ' + tag + ' successfully built')
   })
 }

@@ -1,5 +1,6 @@
 var argv = require('minimist')(process.argv.slice(3))
 var path = require('path')
+var assert = require('assert')
 var runCommand = require('./run_command')
 
 // set up sane defaults
@@ -37,12 +38,9 @@ module.exports = function (project) {
   }
 
   var deployPath = path.join(__dirname, '..', 'deploy')
-  runCommand('rancher-compose --project-name ' + stack + ' up -d --pull --force-upgrade --confirm-upgrade', {cwd: deployPath}, deploymentFinished)
-}
 
-assert = function (variable, msg) {
-  if (!variable) {
-    console.error(msg)
-    process.exit(1)
-  }
+  var cmd = 'rancher-compose'
+  if (process.env.TRAVIS) cmd = './rancher-compose-linux-386-v0.9.0-rc2'
+
+  runCommand(cmd + ' --project-name ' + stack + ' up -d --pull --force-upgrade --confirm-upgrade', {cwd: deployPath}, deploymentFinished)
 }

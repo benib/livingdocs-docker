@@ -1,15 +1,10 @@
 # This file is managed with https://github.com/upfrontIO/livingdocs-docker
 # Local changes are discouraged as they might get overwritten
 
-FROM node:4
+FROM mhart/alpine-node:4
 MAINTAINER Livingdocs <dev@livingdocs.io>
 
-RUN apt-get update && apt-get upgrade -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
-    curl git vim nano wget netcat-openbsd build-essential ca-certificates lsb-release python-all rlwrap \
-    jq imagemagick postgresql-client \
-    && apt-get autoremove -y && apt-get clean && \
-    rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apk add --no-cache jq bash build-base python imagemagick postgresql
 
 # Copy dumb-init to correctly handle signals sent to the main process
 COPY docker/dumb-init /sbin/dumb-init

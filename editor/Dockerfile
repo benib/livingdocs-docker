@@ -1,14 +1,14 @@
 # This file is managed with https://github.com/upfrontIO/livingdocs-docker
 # Local changes are discouraged as they might get overwritten
 
-FROM node:4
+FROM mhart/alpine-node:4
 MAINTAINER Livingdocs <dev@livingdocs.io>
 
-RUN apt-get update && apt-get upgrade -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
-    jq nginx && \
-    apt-get autoremove -y && apt-get clean && \
-    rm -Rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apk add --no-cache jq bash build-base python nginx curl
+RUN curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1/dockerized-phantomjs.tar.gz" | tar xz -C /
+
+RUN addgroup -g 82 -S www-data
+RUN adduser -u 82 -D -S -G www-data www-data
 
 # Copy dumb-init to correctly handle signals sent to the main process
 COPY docker/dumb-init /sbin/dumb-init

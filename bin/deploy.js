@@ -38,5 +38,9 @@ module.exports = function (project) {
   }
 
   var deployPath = path.join(__dirname, '..', 'deploy')
-  runCommand('rancher-compose --project-name ' + stack + ' up -d --pull --force-upgrade --confirm-upgrade', {cwd: deployPath}, deploymentFinished)
+
+  var cmd = 'rancher-compose'
+  if (process.env.TRAVIS) cmd = './rancher-compose-linux-386-v0.9.0-rc2'
+
+  runCommand(cmd + ' --project-name ' + stack + ' up -d --pull --force-upgrade --confirm-upgrade', {cwd: deployPath}, deploymentFinished)
 }

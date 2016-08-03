@@ -4,7 +4,7 @@
 FROM mhart/alpine-node:4
 MAINTAINER Livingdocs <dev@livingdocs.io>
 
-RUN apk add --no-cache jq bash build-base python imagemagick postgresql
+RUN apk add --no-cache jq bash build-base git python imagemagick postgresql
 
 # Copy dumb-init to correctly handle signals sent to the main process
 COPY docker/dumb-init /sbin/dumb-init

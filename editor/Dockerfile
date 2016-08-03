@@ -4,7 +4,7 @@
 FROM mhart/alpine-node:4
 MAINTAINER Livingdocs <dev@livingdocs.io>
 
-RUN apk add --no-cache jq bash build-base python nginx curl
+RUN apk add --no-cache jq bash build-base git python nginx curl
 RUN curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1/dockerized-phantomjs.tar.gz" | tar xz -C /
 
 RUN addgroup -g 82 -S www-data

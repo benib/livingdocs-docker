@@ -28,15 +28,14 @@ RUN npm cache clean
 
 EXPOSE 9000
 
-# The build can be skipped if you want to start the webpack
-# dev server instead of serving static assets with nginx
-ARG SKIP_BUILD=false
-ARG ENVIRONMENT=local
-ENV ENVIRONMENT ${ENVIRONMENT:-local}
-ENV PATH /app/node_modules/.bin:$PATH
-
 COPY ./ /app
 RUN docker/build-app.sh
 
+# The build can be skipped if you want to start the webpack
+# dev server instead of serving static assets with nginx
+ARG SKIP_BUILD=false
+ENV ENVIRONMENT ${ENVIRONMENT:-dokku_staging}
+ENV PATH /app/node_modules/.bin:$PATH
+
 ENTRYPOINT  ["/sbin/dumb-init"]
-CMD ["nginx"]
+CMD ["./docker/build-environment.sh", "nginx"]

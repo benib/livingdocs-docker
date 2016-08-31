@@ -20,7 +20,7 @@ server:
   command:
     - bash
     - -c
-    - node_modules/@livingdocs/server/bin/database.js create && node_modules/@livingdocs/server/bin/database.js enable-extensions && node index.js
+    - grunt setup --first_name=dummy --last_name=dummy --email=dev@livingdocs.io --password=${environment} --project_name=livingdocs --design_name=timeline --design_version=0.6.2 && node index.js
   image: ${server_image}
   links:
   - elasticsearch:elasticsearch

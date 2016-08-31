@@ -1,6 +1,7 @@
 editor:
   environment:
     ENVIRONMENT: ${environment}
+    API__HOST: http://server.${base_host}
   labels:
     traefik.domain: ${domain}
     traefik.port: '9000'

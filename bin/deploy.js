@@ -6,7 +6,7 @@ var runCommand = require('./run_command')
 // set up sane defaults
 var environment = argv.environment
 var stack = argv.stack || environment
-var domain = argv.domain || 'rancher.livingdocs.io'
+var domain = argv.domain || 'branches.rancher.livingdocs.io'
 var serverImage = argv.server_image || 'livingdocs/service-server:latest'
 var editorImage = argv.editor_image || 'livingdocs/editor:latest'
 
@@ -30,7 +30,7 @@ module.exports = function (project) {
     if (err) {
       console.error(err)
     } else {
-      console.log('Deployed to http://' + project + '.' + stack + '.livingdocs.' + domain) // TODO: make environment name dynamic. there is currently no way
+      console.log('Deployed to http://' + project + '.' + stack + domain)
       console.log('Environment: ' + environment)
       console.log('Server: ' + serverImage)
       console.log('Editor: ' + editorImage)

@@ -34,7 +34,7 @@ RUN docker/build-app.sh
 # The build can be skipped if you want to start the webpack
 # dev server instead of serving static assets with nginx
 ARG SKIP_BUILD=false
-ENV ENVIRONMENT ${ENVIRONMENT:-dokku_staging}
+ENV ENVIRONMENT local
 ENV PATH /app/node_modules/.bin:$PATH
 
 ENTRYPOINT  ["/sbin/dumb-init"]

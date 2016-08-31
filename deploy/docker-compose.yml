@@ -1,4 +1,6 @@
 editor:
+  environment:
+    ENVIRONMENT: ${environment}
   labels:
     traefik.domain: ${domain}
     traefik.port: '9000'

@@ -9,6 +9,7 @@ var stack = argv.stack || environment
 var domain = argv.domain || 'branches.rancher.livingdocs.io'
 var serverImage = argv.server_image || 'livingdocs/service-server:latest'
 var editorImage = argv.editor_image || 'livingdocs/editor:latest'
+var baseHost = stack + '.' + domain
 
 module.exports = function (project) {
   // required variables in this script
@@ -23,6 +24,7 @@ module.exports = function (project) {
   // required variables interpolated in docker-compose.yml
   process.env.environment = environment
   process.env.domain = domain
+  process.env.base_host = baseHost
   process.env.server_image = serverImage
   process.env.editor_image = editorImage
 
@@ -30,7 +32,7 @@ module.exports = function (project) {
     if (err) {
       console.error(err)
     } else {
-      console.log('Deployed to http://' + project + '.' + stack + domain)
+      console.log('Deployed to http://' + project + '.' + baseHost)
       console.log('Environment: ' + environment)
       console.log('Server: ' + serverImage)
       console.log('Editor: ' + editorImage)

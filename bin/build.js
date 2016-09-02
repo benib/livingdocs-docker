@@ -1,4 +1,4 @@
-runCommand = require('./run_command')
+var runCommand = require('./helpers/run_command')
 
 module.exports = function (project) {
   var tag = 'livingdocs/' + project

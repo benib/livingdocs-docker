@@ -35,22 +35,27 @@ module.exports = function (project) {
 
 
   var projectUrl = 'http://' + project + '.' + baseHost
+  var githubCmd = __dirname + '/helpers/github_deployment.sh ' + projectUrl
+
+  deploymentFailed = function (err) {
+    runCommand(githubCmd + ' error', {}, function () {
+      process.exit(err.code)
+    })
+  }
+
+  deploymentSuccessful = function () {
+    runCommand(githubCmd + ' success', {}, function (err) {
+      if (err) process.exit(err.code)
+
+      console.log('Deployed to ' + projectUrl)
+      console.log('Environment: ' + environment)
+      console.log('Server: ' + serverImage)
+      console.log('Editor: ' + editorImage)
+    })
+  }
 
   deploymentFinished = function (err) {
-    var githubCmd = __dirname + '/helpers/github_deployment.sh ' + projectUrl
-
-    if (err) {
-      runCommand(githubCmd + ' error', {}, function () {
-        console.error(err)
-      })
-    } else {
-      runCommand(githubCmd + ' success', {}, function () {
-        console.log('Deployed to ' + projectUrl)
-        console.log('Environment: ' + environment)
-        console.log('Server: ' + serverImage)
-        console.log('Editor: ' + editorImage)
-      })
-    }
+    err ? deploymentFailed(err) : deploymentSuccessful()
   }
 
   var deployPath = path.join(__dirname, '..', 'deploy')
@@ -59,6 +64,12 @@ module.exports = function (project) {
   if (process.env.TRAVIS) cmd = './rancher-compose-linux-386-v0.9.0-rc2'
 
   var stackCmd = cmd + ' --project-name ' + stack
-  var upgrade = stackCmd + ' up -d --confirm-upgrade --pull --force-upgrade --batch-size 4'
-  runCommand(upgrade + ' --pull --force-upgrade --batch-size 4', {cwd: deployPath}, deploymentFinished)
+  var deleteCmd = stackCmd + ' rm --force'
+  var upgradeCmd = stackCmd + ' up -d --confirm-upgrade --pull --force-upgrade --batch-size 4'
+
+  runCommand(deleteCmd, {cwd: deployPath}, function (err) {
+    if (err) process.exit(err.code)
+
+    runCommand(upgradeCmd + ' --pull --batch-size 4', {cwd: deployPath}, deploymentFinished)
+  })
 }

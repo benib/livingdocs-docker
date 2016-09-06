@@ -13,8 +13,12 @@ module.exports = function (command, options, callback) {
   })
 
   child.on('close', function (code) {
-    err = (code != 0) ? 'Command failed with code ' + code + ': ' + command : null
-    callback(err)
-    process.exit(code)
+    if (code != 0){
+      err = new Error('Command failed with code ' + code + ': ' + command)
+      err.code = code
+      callback(err)
+    } else {
+      callback()
+    }
   })
 }

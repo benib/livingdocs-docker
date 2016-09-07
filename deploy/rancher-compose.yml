@@ -5,7 +5,7 @@ editor:
     interval: 5000
     initializing_timeout: 60000
     unhealthy_threshold: 3
-    strategy: recreate
+    strategy: none
     response_timeout: 2000
     request_line: GET "/version.json" "HTTP/1.0"
     healthy_threshold: 2
@@ -17,7 +17,7 @@ server:
     interval: 5000
     initializing_timeout: 60000
     unhealthy_threshold: 3
-    strategy: recreate
+    strategy: none
     response_timeout: 2000
     request_line: GET "/status" "HTTP/1.0"
     healthy_threshold: 2
@@ -29,7 +29,7 @@ postgres:
     interval: 5000
     initializing_timeout: 60000
     unhealthy_threshold: 3
-    strategy: recreate
+    strategy: none
     response_timeout: 2000
     healthy_threshold: 2
 
@@ -40,6 +40,6 @@ elasticsearch:
     interval: 5000
     initializing_timeout: 60000
     unhealthy_threshold: 3
-    strategy: recreate
+    strategy: none
     response_timeout: 2000
     healthy_threshold: 2

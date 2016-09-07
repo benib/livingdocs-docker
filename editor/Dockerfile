@@ -25,17 +25,18 @@ RUN npm install -g npm@"$(jq -r '.engines.npm' package.json)"
 RUN npm install -g grunt-cli
 RUN npm install
 RUN npm cache clean
+ENV PATH /app/node_modules/.bin:$PATH
 
 EXPOSE 9000
 
 COPY ./ /app
-RUN docker/build-app.sh
 
 # The build can be skipped if you want to start the webpack
 # dev server instead of serving static assets with nginx
 ARG SKIP_BUILD=false
+RUN docker/build-app.sh
+
 ENV ENVIRONMENT local
-ENV PATH /app/node_modules/.bin:$PATH
 
 ENTRYPOINT  ["/sbin/dumb-init"]
 CMD ["./docker/build-environment.sh", "nginx"]

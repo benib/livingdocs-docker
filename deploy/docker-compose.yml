@@ -12,7 +12,9 @@ server:
   environment:
     ENVIRONMENT: ${environment}
     db__host: postgres
+    db__database: ${base_host}
     search__host: http://elasticsearch:9200
+    search__article_document_index: ${base_host}
   labels:
     traefik.domain: ${domain}
     traefik.port: '9090'
@@ -22,12 +24,6 @@ server:
     - -c
     - grunt setup --first_name=dummy --last_name=dummy --email=dev@livingdocs.io --password=${environment} --project_name=livingdocs --design_name=timeline --design_version=0.6.2 && node index.js
   image: ${server_image}
-  links:
-  - elasticsearch:elasticsearch
-  - postgres:postgres
-
-postgres:
-  image: livingdocs/postgres:latest
-
-elasticsearch:
-  image: livingdocs/elasticsearch:latest
+  external_links:
+    - Services/elasticsearch
+    - Services/postgres

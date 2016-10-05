@@ -28,6 +28,7 @@ module.exports = function (project) {
 
   // required variables interpolated in docker-compose.yml
   process.env.environment = environment
+  process.env.stack = stack
   process.env.domain = domain
   process.env.base_host = baseHost
   process.env.server_image = serverImage

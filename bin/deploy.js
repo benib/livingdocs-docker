@@ -7,7 +7,7 @@ var runCommand = require('./helpers/run_command')
 var environment = argv.environment
 var stack = argv.stack || environment
 var domain = argv.domain || 'branches.rancher.livingdocs.io'
-var serverImage = argv.server_image || 'livingdocs/service-server:latest'
+var serverImage = argv.server_image || 'livingdocs/server:latest'
 var editorImage = argv.editor_image || 'livingdocs/editor:latest'
 var baseHost = stack + '.' + domain
 

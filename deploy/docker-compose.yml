@@ -12,9 +12,9 @@ server:
   environment:
     ENVIRONMENT: ${environment}
     db__host: postgres
-    db__database: ${base_host}
+    db__database: ${stack}
     search__host: http://elasticsearch:9200
-    search__article_document_index: ${base_host}
+    search__article_document_index: ${stack}
   labels:
     traefik.domain: ${domain}
     traefik.port: '9090'

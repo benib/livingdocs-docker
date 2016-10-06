@@ -40,6 +40,7 @@ module.exports = function (project) {
 
   deploymentFailed = function (err) {
     runCommand(githubCmd + ' error', {}, function () {
+      console.error(err)
       process.exit(err.code)
     })
   }
@@ -71,6 +72,6 @@ module.exports = function (project) {
   runCommand(deleteCmd, {cwd: deployPath}, function (err) {
     if (err) process.exit(err.code)
 
-    runCommand(upgradeCmd + ' --pull --batch-size 4', {cwd: deployPath}, deploymentFinished)
+    runCommand(upgradeCmd + ' --pull --batch-size 4', {cwd: deployPath, timeout: 240000}, deploymentFinished)
   })
 }

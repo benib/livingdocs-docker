@@ -25,7 +25,7 @@ server:
     - grunt database-create &&
       grunt database-enable-extensions &&
       grunt migrate &&
-      grunt user-create-admin --first_name=dummy --last_name=dummy --admin --token_based_signup --email=dev@livingdocs.io --password=${environment} --project_id --design_name=timeline --design_version=0.8.0 &&
+      grunt user-create-admin --first_name=dummy --last_name=dummy --admin --token_based_signup --email=dev@livingdocs.io --password=${environment} --no-project_id --design_name=timeline --design_version=0.8.0 &&
       node index.js
   image: ${server_image}
   external_links:

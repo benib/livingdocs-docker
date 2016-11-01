@@ -14,7 +14,7 @@
     "semantic-release": "./bin/semantic-release.sh"
   },
   "dependencies": {
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^1.0.0",
     "minimist": "^1.2.0"
   },
   "devDependencies": {

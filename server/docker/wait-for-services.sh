@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # This file is managed with https://github.com/upfrontIO/livingdocs-docker
 # Local changes are discouraged as they might get overwritten

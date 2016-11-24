@@ -1,7 +1,7 @@
 # This file is managed with https://github.com/upfrontIO/livingdocs-docker
 # Local changes are discouraged as they might get overwritten
 
-FROM mhart/alpine-node:4
+FROM mhart/alpine-node:6
 MAINTAINER Livingdocs <dev@livingdocs.io>
 
 RUN apk add --no-cache jq bash build-base git python nginx curl

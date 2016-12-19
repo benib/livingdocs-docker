@@ -21,7 +21,6 @@ COPY package.json /app/package.json
 COPY .npmrc /app/.npmrc
 
 ENV NPM_CONFIG_LOGLEVEL warn
-RUN npm install -g grunt-cli
 RUN npm install
 RUN npm cache clean
 ENV PATH /app/node_modules/.bin:$PATH

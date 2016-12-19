@@ -7,21 +7,25 @@ MAINTAINER Livingdocs <dev@livingdocs.io>
 RUN apk add --no-cache jq bash build-base git python nginx curl
 RUN curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1/dockerized-phantomjs.tar.gz" | tar xz -C /
 
-RUN addgroup -g 82 -S www-data
-RUN adduser -u 82 -D -S -G www-data www-data
+COPY docker/fix-permissions.sh /usr/libexec/fix-permissions.sh
+
+RUN addgroup -g 82 -S www-data && \
+    adduser -u 82 -D -S -G www-data www-data && \
+    /usr/libexec/fix-permissions.sh /var/lib/nginx/ && \
+    /usr/libexec/fix-permissions.sh /var/log/nginx/
 
 # Copy dumb-init to correctly handle signals sent to the main process
 COPY docker/dumb-init /sbin/dumb-init
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
-# Copy files required for installing dependencies
 WORKDIR /app
+
+# Copy files required for installing dependencies
 COPY package.json /app/package.json
 COPY .npmrc /app/.npmrc
 
 ENV NPM_CONFIG_LOGLEVEL warn
-RUN npm install -g grunt-cli
 RUN npm install
 RUN npm cache clean
 ENV PATH /app/node_modules/.bin:$PATH
@@ -36,6 +40,9 @@ ARG SKIP_BUILD=false
 RUN docker/build-app.sh
 
 ENV ENVIRONMENT local
+
+RUN /usr/libexec/fix-permissions.sh /app
+USER www-data
 
 ENTRYPOINT  ["/sbin/dumb-init"]
 CMD ["./docker/build-environment.sh", "nginx"]

@@ -7,7 +7,10 @@ services:
 notifications:
   email: false
 before_install:
-  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  # docker tools
+  - GIST=https://gist.githubusercontent.com/marcbachmann/16574ba8c614bb3b78614a351f324b86/raw/a7e17acc57938a047c093f560858e3b0a8e2c741
+  - curl -s $GIST/update-docker-engine.sh | bash
+
 install:
   - npm install -g npm@"$(jq -r '.engines.npm' package.json)"
   - npm install

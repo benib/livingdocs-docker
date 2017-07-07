@@ -1,6 +1,10 @@
 node_modules
 npm-debug.log
+
 test/server/**/*docker*
 test/editor/**/*docker*
+test/delivery/**/*docker*
+
 test/server/**/*rancher*
 test/editor/**/*rancher*
+test/delivery/**/*rancher*

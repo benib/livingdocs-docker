@@ -1,14 +1,14 @@
-var extend = require('util')._extend
-var exec = require('child_process').exec
+const extend = require('util')._extend
+const exec = require('child_process').exec
 
 module.exports = function (command, options, callback) {
-  var child = exec(command, extend({env: process.env}, options))
+  const child = exec(command, extend({env: process.env}, options))
 
   if (options.timeout) {
     setTimeout(function () {
-      var err = new Error('Command timed out after ' + options.timeout + 'ms: ' + command)
+      const err = new Error(`Command timed out after ${options.timeout}ms: ${command}`)
       err.code = 124
-      callback(err)
+      return callback(err)
     }, options.timeout)
   }
 
@@ -21,12 +21,12 @@ module.exports = function (command, options, callback) {
   })
 
   child.on('close', function (code) {
-    if (code != 0) {
-      var err = new Error('Command failed with code ' + code + ': ' + command)
+    if (code !== 0) {
+      const err = new Error(`Command failed with code ${code}: ${command}`)
       err.code = code
-      callback(err)
+      return callback(err)
     } else {
-      callback()
+      return callback()
     }
   })
 }

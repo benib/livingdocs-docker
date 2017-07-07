@@ -1,19 +1,19 @@
-var argv = require('minimist')(process.argv.slice(3))
-var path = require('path')
-var assert = require('assert')
-var runCommand = require('./helpers/run_command')
+const argv = require('minimist')(process.argv.slice(3))
+const path = require('path')
+const assert = require('assert')
+const runCommand = require('./helpers/run_command')
 
 // set up sane defaults
-var environment = argv.environment
-var stack = argv.stack || environment
-var domain = argv.domain || 'branches.rancher.livingdocs.io'
-var serverImage = argv.server_image || 'livingdocs/server:latest'
-var editorImage = argv.editor_image || 'livingdocs/editor:latest'
-var baseHost = stack + '.' + domain
+const environment = argv.environment
+const stack = argv.stack || environment
+const domain = argv.domain || 'branches.rancher.livingdocs.io'
+const serverImage = argv.server_image || 'livingdocs/server:latest'
+const editorImage = argv.editor_image || 'livingdocs/editor:latest'
+const baseHost = `${stack}.${domain}`
 
 module.exports = function (project) {
   // required variables in this script
-  assert(stack, '--stack must be set');
+  assert(stack, '--stack must be set')
   assert(environment, '--environment must be set')
 
   // required variables for rancher-compose cli
@@ -35,43 +35,43 @@ module.exports = function (project) {
   process.env.editor_image = editorImage
 
 
-  var projectUrl = 'http://' + project + '.' + baseHost
-  var githubCmd = __dirname + '/helpers/github_deployment.sh ' + projectUrl
+  const projectUrl = `http://${project}.${baseHost}`
+  const githubCmd = `${__dirname}/helpers/github_deployment.sh ${projectUrl}`
 
-  deploymentFailed = function (err) {
-    runCommand(githubCmd + ' error', {}, function () {
+  const deploymentFailed = function (err) {
+    runCommand(`${githubCmd} error`, {}, function () {
       console.error(err)
       process.exit(err.code)
     })
   }
 
-  deploymentSuccessful = function () {
-    runCommand(githubCmd + ' success', {}, function (err) {
+  const deploymentSuccessful = function () {
+    runCommand(`${githubCmd} success`, {}, function (err) {
       if (err) process.exit(err.code)
 
-      console.log('Deployed to ' + projectUrl)
-      console.log('Environment: ' + environment)
-      console.log('Server: ' + serverImage)
-      console.log('Editor: ' + editorImage)
+      console.log(`Deployed to ${projectUrl}`)
+      console.log(`Environment: ${environment}`)
+      console.log(`Server: ${serverImage}`)
+      console.log(`Editor: ${editorImage}`)
     })
   }
 
-  deploymentFinished = function (err) {
+  const deploymentFinished = function (err) {
     err ? deploymentFailed(err) : deploymentSuccessful()
   }
 
-  var deployPath = path.join(__dirname, '..', 'deploy')
+  const deployPath = path.join(__dirname, '..', 'deploy')
 
-  var cmd = 'rancher-compose'
+  let cmd = 'rancher-compose'
   if (process.env.TRAVIS) cmd = './rancher-compose-linux-386-v0.9.0-rc2'
 
-  var stackCmd = cmd + ' --project-name ' + stack
-  var deleteCmd = stackCmd + ' rm --force'
-  var upgradeCmd = stackCmd + ' up -d --confirm-upgrade --pull --force-upgrade --batch-size 4'
+  const stackCmd = `${cmd} --project-name ${stack}`
+  const deleteCmd = `${stackCmd} rm --force`
+  const upgradeCmd = `${stackCmd} up -d --confirm-upgrade --pull --force-upgrade --batch-size 4`
 
   runCommand(deleteCmd, {cwd: deployPath}, function (err) {
     if (err) process.exit(err.code)
 
-    runCommand(upgradeCmd + ' --pull --batch-size 4', {cwd: deployPath, timeout: 240000}, deploymentFinished)
+    runCommand(`${upgradeCmd} --pull --batch-size 4`, {cwd: deployPath, timeout: 240000}, deploymentFinished)
   })
 }

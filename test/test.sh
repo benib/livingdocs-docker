@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-for PROJECT in 'server' 'editor'
+for PROJECT in 'delivery' 'server' 'editor'
 do
   cd $PROJECT
 

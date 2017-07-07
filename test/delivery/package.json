@@ -1,0 +1,14 @@
+{
+  "name": "@livingdocs/delivery",
+  "version": "0.0.0-placeholder",
+  "description": "livingdocs-docker-delivery-test",
+  "engines": {
+    "node": "6",
+    "npm": "^3.8.3"
+  },
+  "dependencies": {
+  },
+  "scripts": {
+    "build": "echo \"Simulating build...\""
+  }
+}

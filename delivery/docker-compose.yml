@@ -1,0 +1,19 @@
+# This file is managed with https://github.com/upfrontIO/livingdocs-docker
+# Local changes are discouraged as they might get overwritten
+
+delivery:
+  build: .
+  environment:
+    ENVIRONMENT: ${ENVIRONMENT}
+  ports:
+    - 9999:9999
+
+varnish:
+  image: livingdocs/bluewin-varnish:latest
+  environment:
+    BACKEND_HOST: localhost
+    BACKEND_PORT: 9999
+  ports:
+    - 8080:8080
+  links:
+    - delivery

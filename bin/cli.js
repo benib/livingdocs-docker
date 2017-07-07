@@ -15,6 +15,8 @@ const getProject = function () {
     return 'server'
   } else if (isProject(pkg, '@livingdocs/editor')) {
     return 'editor'
+  } else if (isProject(pkg, '@livingdocs/bluewin-delivery') || isProject(pkg, '@livingdocs/delivery')) {
+    return 'delivery'
   } else {
     console.error('No Dockerfiles available for this project')
   }

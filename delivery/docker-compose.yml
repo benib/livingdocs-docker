@@ -11,9 +11,9 @@ delivery:
 varnish:
   image: livingdocs/bluewin-varnish:latest
   environment:
-    BACKEND_HOST: localhost
+    BACKEND_HOST: delivery
     BACKEND_PORT: 9999
   ports:
-    - 8080:8080
+    - 8080:80
   links:
     - delivery

@@ -1,8 +1,6 @@
 # This file is managed with https://github.com/upfrontIO/livingdocs-docker
 # Local changes are discouraged as they might get overwritten
-
-FROM mhart/alpine-node:6
-MAINTAINER Livingdocs <dev@livingdocs.io>
+FROM node:8-alpine
 
 RUN apk add --no-cache jq bash build-base git python imagemagick postgresql
 
@@ -15,9 +13,7 @@ COPY package.json /app/package.json
 COPY .npmrc /app/.npmrc
 
 ENV NPM_CONFIG_LOGLEVEL warn
-RUN npm install -g grunt-cli
 RUN npm install
-RUN npm cache clean
 
 ENV PATH /app/node_modules/.bin:$PATH
 ENV ENVIRONMENT local

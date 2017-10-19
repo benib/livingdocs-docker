@@ -2,12 +2,12 @@
 # Local changes are discouraged as they might get overwritten
 
 postgres:
-  image: livingdocs/postgres:latest
+  image: livingdocs/postgres:9.6
   ports:
     - 5432:5432
 
 elasticsearch:
-  image: livingdocs/elasticsearch:latest
+  image: livingdocs/elasticsearch:2.4
   ports:
     - 9200:9200
 

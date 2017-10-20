@@ -11,7 +11,7 @@ COPY docker/dumb-init /sbin/dumb-init
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /app
-ADD ./bin /app/bin
+COPY ./bin /app/bin
 RUN /usr/local/bin/fix-permissions.sh /app
 
 USER www-data

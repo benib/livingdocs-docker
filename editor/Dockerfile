@@ -2,10 +2,9 @@
 # Local changes are discouraged as they might get overwritten
 FROM node:8-alpine
 
-RUN apk add --no-cache jq bash build-base git python nginx curl
-RUN curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1/dockerized-phantomjs.tar.gz" | tar xz -C /
+RUN apk add --no-cache jq bash build-base git python nginx curl chromium
 
-RUN addgroup -g 82 -S www-data && adduser -s /bin/sh -u 82 -D -S -G www-data www-data
+RUN adduser -s /bin/sh -u 82 -D -S -G www-data www-data
 COPY docker/fix-permissions.sh /usr/local/bin/fix-permissions.sh
 COPY docker/dumb-init /sbin/dumb-init
 COPY docker/nginx.conf /etc/nginx/nginx.conf

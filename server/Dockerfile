@@ -2,6 +2,11 @@
 # Local changes are discouraged as they might get overwritten
 FROM node:8-alpine
 
+# Workaround for `npm publish` issue where test directories
+# are excluded from the published module in npm <v5.5
+# We use yarn here as a workaround for some docker file system issue
+RUN yarn global add npm@^5.5 && rm -Rf /usr/local/lib/node_modules/npm
+
 RUN apk add --no-cache jq bash build-base git python imagemagick postgresql
 
 # Copy dumb-init to correctly handle signals sent to the main process

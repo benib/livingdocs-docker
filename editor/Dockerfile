@@ -2,15 +2,34 @@
 # Local changes are discouraged as they might get overwritten
 FROM node:8-alpine
 
-# Workaround for `npm publish` issue where test directories
-# are excluded from the published module in npm <v5.5
-# We use yarn here as a workaround for some docker file system issue
-RUN yarn global add npm@^5.5 && rm -Rf /usr/local/lib/node_modules/npm
+# Update apk repositories
+RUN echo "http://dl-2.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories
+RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN echo "@testing http://dl-2.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
-RUN apk add --no-cache jq bash build-base git python nginx curl
-RUN curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1/dockerized-phantomjs.tar.gz" | tar xz -C /
+RUN apk -U --no-cache add \
+    bash \
+    build-base \
+    chromium@testing \
+    curl \
+    dbus \
+    freetype \
+    git \
+    grep \
+    harfbuzz \
+    jq \
+    mesa-dri-swrast \
+    nginx \
+    python \
+    ttf-freefont \
+    udev \
+    wait4ports \
+    xorg-server \
+    xvfb \
+    zlib-dev
 
-RUN addgroup -g 82 -S www-data && adduser -s /bin/sh -u 82 -D -S -G www-data www-data
+
+RUN adduser -s /bin/sh -u 82 -D -S -G www-data www-data
 COPY docker/fix-permissions.sh /usr/local/bin/fix-permissions.sh
 COPY docker/dumb-init /sbin/dumb-init
 COPY docker/nginx.conf /etc/nginx/nginx.conf
@@ -23,6 +42,8 @@ USER www-data
 EXPOSE 9000
 ENV PATH /app/node_modules/.bin:$PATH
 ENV NPM_CONFIG_LOGLEVEL warn
+ENV CHROME_BIN=/usr/bin/chromium-browser
+ENV CHROME_PATH=/usr/lib/chromium/
 
 # Copy files required for installing dependencies
 COPY package.json /app/package.json

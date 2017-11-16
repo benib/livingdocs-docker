@@ -7,10 +7,7 @@ FROM node:8-alpine
 # We use yarn here as a workaround for some docker file system issue
 RUN yarn global add npm@^5.5 && rm -Rf /usr/local/lib/node_modules/npm
 
-RUN apk add --no-cache jq bash git
-
-# Copy dumb-init to correctly handle signals sent to the main process
-COPY docker/dumb-init /sbin/dumb-init
+RUN apk add --no-cache jq bash git tini
 
 # Copy files required for installing dependencies
 WORKDIR /app
@@ -25,5 +22,5 @@ ENV ENVIRONMENT local
 EXPOSE 9999
 COPY ./ /app
 
-ENTRYPOINT ["/sbin/dumb-init"]
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["npm", "start"]

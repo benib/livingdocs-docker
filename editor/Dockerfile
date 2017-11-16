@@ -9,6 +9,7 @@ RUN echo "@testing http://dl-2.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
 
 RUN apk -U --no-cache add \
     bash \
+    tini \
     build-base \
     chromium@testing \
     curl \
@@ -31,7 +32,6 @@ RUN apk -U --no-cache add \
 
 RUN adduser -s /bin/sh -u 82 -D -S -G www-data www-data
 COPY docker/fix-permissions.sh /usr/local/bin/fix-permissions.sh
-COPY docker/dumb-init /sbin/dumb-init
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /app
@@ -63,5 +63,5 @@ RUN docker/build-app.sh
 
 ENV ENVIRONMENT local
 
-ENTRYPOINT  ["/sbin/dumb-init"]
+ENTRYPOINT  ["/sbin/tini", "-g", "--"]
 CMD ["./docker/build-environment.sh", "nginx"]

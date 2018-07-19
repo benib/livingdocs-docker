@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This file is managed with https://github.com/upfrontIO/livingdocs-docker
+# This file is managed with https://github.com/livingdocsIO/livingdocs-docker
 # Local changes are discouraged as they might get overwritten
 
 set -e
